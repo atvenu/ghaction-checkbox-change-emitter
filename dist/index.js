@@ -30171,7 +30171,7 @@ try {
                 }
             }
         });
-        const checkboxChanges = JSON.stringify(changedLines.join("\n"));
+        const checkboxChanges = JSON.stringify(changedLines);
         console.log("changed lines", checkboxChanges)
         core.setOutput("checkboxChanges", checkboxChanges);
     } else {
