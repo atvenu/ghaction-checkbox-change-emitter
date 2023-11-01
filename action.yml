@@ -1,6 +1,7 @@
 name: 'Hello World'
 description: 'Greet someone and record the time'
 inputs:
+  github-token:  # token for octocat actions
   who-to-greet:  # id of input
     description: 'Who to greet'
     required: true
