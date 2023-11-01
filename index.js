@@ -9,29 +9,25 @@ try {
     core.setOutput("time", time);
     core.exportVariable("time", time);
     // Get the JSON webhook payload for the event that triggered the workflow
-    const body = JSON.stringify(github.context.payload.issue.body, undefined, 2)
-    const changes = JSON.stringify(github.context.payload.changes, undefined, 2)
-    console.log(`The body payload: ${body}`);
-    console.log(`The changes payload: ${changes}`);
+    const body = github.context.payload.issue.body;
+    const changes = github.context.payload.changes;
+    console.log(`The body payload:`, JSON.stringify(body, undefined, 2));
+    console.log(`The changes payload:`, JSON.stringify(changes, undefined, 2));
 
     // if the changes payload includes the key of body then continue
-    const keysThatChanged = Object.keys(github.context.payload.changes);
+    const keysThatChanged = Object.keys(changes);
     if (keysThatChanged.includes("body")) {
-        // do the work of comparing and looking for the
-        const changedBody = changes.body.from.split("\n")
-        const originalBody = changes.body.split("\n")
-        // const checksFromChanged = changedBody.filter((item)=>{ item.})
         const previous = []
         const current = []
         const regex = /^-\s*\[([xX ]*)\]\s*(.*)$/gm
         let match
-        while ((match = regex.exec(ranges.body.from)) !== null) {
+        while ((match = regex.exec(changes.body.from)) !== null) {
             const checkbox = match[1].trim()
             const text = match[2].trim()
             core.debug(`Found checkbox: ${checkbox} and text: ${text}`)
             previous.push({"checked": (checkbox === 'x' || checkbox === 'X'), "text": text})
         }
-        while ((match = regex.exec(body.from)) !== null) {
+        while ((match = regex.exec(body)) !== null) {
             const checkbox = match[1].trim()
             const text = match[2].trim()
             core.debug(`Found checkbox: ${checkbox} and text: ${text}`)
