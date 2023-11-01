@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  dev:
+    image: node-dev
+    build:
+      context: .
+    command: ["run", "dev"]
+    entrypoint: "npm"
+    volumes:
+      - .:/app
