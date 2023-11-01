@@ -30171,9 +30171,12 @@ try {
                 }
             }
         });
-        console.log("changed lines", JSON.stringify(changedLines))
+        const changes = JSON.stringify(changedLines.join("\n"));
+        console.log("changed lines", changes)
+        core.setOutput("checkboxChanges", changes);
     } else {
         // nothing changed
+        core.setOutput("checkboxChanges", '');
         console.log('Nothing changed apparently', JSON.stringify(keysThatChanged));
     }
 } catch (error) {
