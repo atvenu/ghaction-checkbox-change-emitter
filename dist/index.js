@@ -30140,7 +30140,7 @@ try {
     console.log(`The changes payload: ${changes}`);
 
     // if the changes payload includes the key of body then continue
-    const keysThatChanged = Object.keys(changes);
+    const keysThatChanged = Object.keys(github.context.payload.changes);
     if (keysThatChanged.includes("body")) {
         // do the work of comparing and looking for the
         const changedBody = changes.body.from.split("\n")
