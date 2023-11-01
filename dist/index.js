@@ -30176,6 +30176,9 @@ try {
             }
         });
         console.log("changed lines", JSON.stringify(changedLines))
+    } else {
+        // nothing changed
+        console.log('Nothing changed apparently', JSON.stringify(keysThatChanged));
     }
 } catch (error) {
     core.setFailed(error.message);
