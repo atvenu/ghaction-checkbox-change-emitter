@@ -30127,13 +30127,6 @@ const core = __nccwpck_require__(8423);
 const github = __nccwpck_require__(5227);
 
 try {
-    // `who-to-greet` input defined in action metadata file
-    const nameToGreet = core.getInput('who-to-greet');
-    console.log(`Hello ${nameToGreet}!`);
-    const time = (new Date()).toTimeString();
-    core.setOutput("time", time);
-    core.exportVariable("time", time);
-    // Get the JSON webhook payload for the event that triggered the workflow
     const body = github.context.payload.issue.body;
     const changes = github.context.payload.changes;
     console.log(`The body payload:`, JSON.stringify(body, undefined, 2));
@@ -30171,13 +30164,16 @@ try {
                 }
             }
         });
-        const checkboxChanges = JSON.stringify(changedLines);
+        const checkboxChanges = changedLines.map((line)=>{ return `${line.checked ? '✅' : '[ ]'} - ${line.text}`}).join("\n");
         console.log("changed lines", checkboxChanges)
-        core.setOutput("checkboxChanges", checkboxChanges);
+        core.setOutput("checkbox-changes", changedLines);
+        core.setOutput("formatted-string", checkboxChanges);
+        core.exportVariable("formatted-string", checkboxChanges);
     } else {
         // nothing changed
-        core.setOutput("checkboxChanges", '');
-        console.log('Nothing changed apparently', JSON.stringify(keysThatChanged));
+        core.setOutput("checkbox-changes", null);
+        core.setOutput("formatted-string", '');
+        core.exportVariable("formatted-string", '');
     }
 } catch (error) {
     core.setFailed(error.message);

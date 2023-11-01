@@ -1,16 +1,10 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
-inputs:
-  github-token:  # token for octocat actions
-    description: 'the access key to do things as atvenu'
-    required: false
-  who-to-greet:  # id of input
-    description: 'Who to greet'
-    required: true
-    default: 'World'
+name: 'Issue Checkbox Change Extractor'
+description: 'Find the check box that changed in an edit and share it'
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  formatted-string: # id of output
+    description: 'Formatted string version of the original line.'
+  checkbox-changes:
+    description: 'json object of the changes'
 runs:
   using: 'node20'
   main: 'dist/index.js'
