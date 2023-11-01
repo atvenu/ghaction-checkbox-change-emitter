@@ -40,15 +40,15 @@ try {
                 return entry.text.replaceAll("~", "") === checkboxLine.text.replaceAll("~", "")
             })
             if (aMatch !== null) {
-                if (aMatch.text !== checkboxLine.text || aMatch.checked != checkboxLine.checked) {
+                if (aMatch.text !== checkboxLine.text || aMatch.checked !== checkboxLine.checked) {
                     // somehow look at the differences now and save them up for the comment part.
                     changedLines.push(checkboxLine);
                 }
             }
         });
-        const changes = JSON.stringify(changedLines.join("\n"));
-        console.log("changed lines", changes)
-        core.setOutput("checkboxChanges", changes);
+        const checkboxChanges = JSON.stringify(changedLines.join("\n"));
+        console.log("changed lines", checkboxChanges)
+        core.setOutput("checkboxChanges", checkboxChanges);
     } else {
         // nothing changed
         core.setOutput("checkboxChanges", '');
