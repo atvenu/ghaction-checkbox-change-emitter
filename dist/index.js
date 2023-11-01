@@ -30134,10 +30134,10 @@ try {
     core.setOutput("time", time);
     core.exportVariable("time", time);
     // Get the JSON webhook payload for the event that triggered the workflow
-    const body = JSON.stringify(github.context.payload.body, undefined, 2)
+    const body = JSON.stringify(github.context.payload.issue.body, undefined, 2)
     const changes = JSON.stringify(github.context.payload.changes, undefined, 2)
-    console.log(`The event payload: ${body}`);
-    console.log(`The event payload: ${changes}`);
+    console.log(`The body payload: ${body}`);
+    console.log(`The changes payload: ${changes}`);
 } catch (error) {
     core.setFailed(error.message);
 }
