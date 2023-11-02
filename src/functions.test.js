@@ -37,10 +37,14 @@ test('finds both of the checkboxes', () => {
 
 const current = [];
 const previous = [];
+const added = [];
+const removed = [];
 
 beforeAll(() => {
     extractCheckmarks("something at the start\n-[x] hi there\nsomething in the middle\n-[ ] was here  \nsomething at the end", current);
     extractCheckmarks("something at the start\n-[x] hi there\nsomething in the middle\n-[x] was here\nsomething at the end", previous);
+    extractCheckmarks("something at the start\n-[x] hi there\nsomething in the middle\n-[x] was here\n- [ ] new task\nsomething at the end", added);
+    extractCheckmarks("something at the start\n-[x] hi there\nsomething in the middle\n-[x] was here\nsomething at the end", removed);
 });
 
 describe('calculating changes between the bodies', () => {
@@ -49,5 +53,11 @@ describe('calculating changes between the bodies', () => {
     })
     test('finds a change between the edits', ()=>{
         expect(generateChangeList(current, previous)).toStrictEqual([{checked: false, text: "was here"}]);
+    })
+    test('handles additional task', ()=>{
+        expect(generateChangeList(added, previous)).toStrictEqual([{checked: false, text: "[added] new task"}]);
+    })
+    test('handles removed task', ()=>{
+        expect(generateChangeList(removed, added)).toStrictEqual([{checked: false, text: "[removed] new task"}]);
     })
 });

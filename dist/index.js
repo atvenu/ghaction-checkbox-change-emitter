@@ -29894,12 +29894,24 @@ const generateChangeList = (current, previous, result=[]) => {
         const aMatch = previous.find((entry) => {
             return entry.text.replaceAll(MARKDOWN_STRIKETHROUGH, "") === checkboxLine.text.replaceAll(MARKDOWN_STRIKETHROUGH, ""); // check from strike
         })
-        if (aMatch !== null) {
+        if (aMatch !== undefined) {
             if (aMatch.text !== checkboxLine.text || aMatch.checked !== checkboxLine.checked) {
                 result.push(checkboxLine);
             }
+        } else {
+            result.push({checked: checkboxLine.checked,  text: `[added] ${checkboxLine.text}`});
         }
     });
+    // check for removed
+    previous.forEach((checkboxLine) => {
+        const aMatch = current.find((entry) => {
+            return entry.text.replaceAll(MARKDOWN_STRIKETHROUGH, "") === checkboxLine.text.replaceAll(MARKDOWN_STRIKETHROUGH, ""); // check from strike
+        });
+        if (aMatch === undefined) {
+            result.push({checked: checkboxLine.checked,  text: `[removed] ${checkboxLine.text}`});
+        }
+    });
+    console.log('>>>', JSON.stringify(result));
     return result;
 };
 
