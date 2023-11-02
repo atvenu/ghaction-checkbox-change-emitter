@@ -25,7 +25,7 @@ jobs:
         steps:
             - name: generate the list of changed checkboxes
               id: checkbox
-              uses: "atvenu/ghaction-checkbox-to-comment@main"
+              uses: "atvenu/ghaction-checkbox-change-emitter@v1.0.0"
               
             - name: list changes debugging
               run: |
