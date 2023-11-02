@@ -1,10 +1,10 @@
 name: 'Issue Checkbox Change Extractor'
 description: 'Find the check box that changed in an edit and share it'
 outputs:
-  formatted-string: # id of output
+  formatted-string:
     description: 'Formatted string version of the original line.'
   checkbox-changes:
-    description: 'json object of the changes'
+    description: 'json object of the changes of the form {checked: <true | false>, text: "<the text next to the checkbox>"}'
 runs:
   using: 'node20'
   main: 'dist/index.js'
