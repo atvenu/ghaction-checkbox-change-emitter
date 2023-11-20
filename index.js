@@ -4,8 +4,9 @@ const { extractCheckmarks, generateChangeList } = require('./src/functions.js');
 
 const BODY_KEY = "body";
 try {
-    const changes = github.context.payload.changes;
-    const body = github.context.payload.issue.body;
+    const payload = github.context.payload
+    const changes = payload.changes;
+    const body = payload?.issue?.body || payload?.pull_request?.body;
 
     core.debug(`The body payload: ${JSON.stringify(body, undefined, 2)}`);
     core.debug(`The changes payload: ${JSON.stringify(changes, undefined, 2)}`);

@@ -1,4 +1,4 @@
-name: 'Issue Checkbox Change Extractor'
+name: 'Issue and PR Checkbox Change Extractor'
 description: 'Find the check box that changed in an edit and share it'
 outputs:
   formatted-string:
