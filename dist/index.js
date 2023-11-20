@@ -29867,7 +29867,7 @@ const MARKDOWN_STRIKETHROUGH = "~";
 /**
  * Generates a list/array of maps/objects representing lines with checkboxes.
  *
- * @param     {string} bodyString     the entire contents of the issue description as a string
+ * @param     {string} bodyString     the entire contents of the issue or PR description as a string
  * @param     {Array} [result]    optional array to push changes into
  * @returns   {Array}   array of maps of the form {checked: <true | false>, text: "<the text next to the checkbox>"}
  */
@@ -29884,8 +29884,8 @@ const extractCheckmarks = (bodyString, result=[])=>{
 /**
  * Calculates a list/array of maps/objects containing changes lines that had a change in checkbox state.
  *
- * @param     {Array} current     array of representations of checkbox containing lines for the current state of the issue
- * @param     {Array} previous    array of representations of checkbox containing lines for the previous state of the issue
+ * @param     {Array} current     array of representations of checkbox containing lines for the current state of the issue or PR
+ * @param     {Array} previous    array of representations of checkbox containing lines for the previous state of the issue or PR
  * @param     {Array} [result]    optional array to push changes into
  * @returns   {Array}   array of maps of the form {checked: <true | false>, text: "<the text next to the checkbox>"} that have changed
  */
@@ -30193,8 +30193,9 @@ const { extractCheckmarks, generateChangeList } = __nccwpck_require__(2023);
 
 const BODY_KEY = "body";
 try {
-    const changes = github.context.payload.changes;
-    const body = github.context.payload.issue.body;
+    const payload = github.context.payload
+    const changes = payload.changes;
+    const body = payload?.issue?.body || payload?.pull_request?.body;
 
     core.debug(`The body payload: ${JSON.stringify(body, undefined, 2)}`);
     core.debug(`The changes payload: ${JSON.stringify(changes, undefined, 2)}`);

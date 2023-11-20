@@ -1,6 +1,6 @@
-# Issue Checkbox Change Extractor for Github Actions
+# Issue and PR Checkbox Change Extractor for Github Actions
 
-This action is to be used with the _issue_ `edited` event to extract modifications to the check box state in an issue.  
+This action is to be used with the `edited` event to extract modifications to the check box state in an issue.  
 
 ## Outputs
 
@@ -31,7 +31,7 @@ jobs:
               run: |
                   echo "changed=${{ steps.checkbox.outputs.formatted-string }}"
 
-            - name: create comment on issue
+            - name: create comment
               if: ${{ steps.checkbox.outputs.formatted-string}} != ""
               uses: peter-evans/create-or-update-comment@v3
               with:
