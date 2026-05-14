@@ -6,5 +6,5 @@ outputs:
   checkbox-changes:
     description: 'json object of the changes of the form {checked: <true | false>, text: "<the text next to the checkbox>"}'
 runs:
-  using: 'node20'
+  using: 'node24'
   main: 'dist/index.js'
