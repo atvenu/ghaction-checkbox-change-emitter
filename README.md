@@ -27,12 +27,8 @@ jobs:
               id: checkbox
               uses: "atvenu/ghaction-checkbox-change-emitter@v1.0.0"
               
-            - name: list changes debugging
-              run: |
-                  echo "changed=${{ steps.checkbox.outputs.formatted-string }}"
-
             - name: create comment
-              if: ${{ steps.checkbox.outputs.formatted-string}} != ""
+              if: steps.checkbox.outputs.formatted-string
               uses: peter-evans/create-or-update-comment@v3
               with:
                   issue-number: ${{ github.event.issue.number }}
